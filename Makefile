@@ -33,24 +33,25 @@ run: build
 	@echo "Running $(APP_NAME)..."
 	@open $(APP_BUNDLE)
 
+run-direct: build
+	@echo "Running $(APP_NAME) directly..."
+	@$(APP_BUNDLE)/Contents/MacOS/$(APP_NAME)
+
 clean:
 	@echo "Cleaning build directory..."
 	@rm -rf $(BUILD_DIR)
 
 install: build
 	@echo "Installing $(APP_NAME) to /Applications..."
-	@killall MacCornerFix 2>/dev/null || true
-	@rm -rf /Applications/$(APP_NAME).app
+	@echo "NOTE: You may need to quit MacCornerFix first from the menu bar"
+	@echo ""
+	@read -p "Press Enter to continue..." dummy
+	@rm -rf /Applications/$(APP_NAME).app 2>/dev/null || true
 	@cp -R $(APP_BUNDLE) /Applications/
+	@xattr -cr /Applications/$(APP_NAME).app
+	@echo ""
 	@echo "Installation complete!"
-	@echo ""
-	@echo "IMPORTANT: You need to grant Accessibility permissions:"
-	@echo "1. Open System Settings"
-	@echo "2. Go to Privacy & Security > Accessibility"
-	@echo "3. Add MacCornerFix and enable it"
-	@echo ""
-	@echo "Launching MacCornerFix from /Applications..."
-	@open /Applications/$(APP_NAME).app
+	@echo "Launch MacCornerFix from /Applications folder manually."
 
 help:
 	@echo "Available targets:"

@@ -164,7 +164,7 @@ class MacCornerFixApp: NSObject, NSApplicationDelegate {
         
         print("🪟 Window frame: (\(Int(position.x)), \(Int(position.y))) \(Int(size.width))x\(Int(size.height))")
         
-        let cornerSize: CGFloat = isSafari ? 30 : 20
+        let cornerSize: CGFloat = isSafari ? 30 : 26
         
         // Create or update corner windows
         if cornerWindows.isEmpty {
