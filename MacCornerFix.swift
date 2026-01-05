@@ -140,8 +140,16 @@ class MacCornerFixApp: NSObject, NSApplicationDelegate {
         let widthRatio = size.width / visibleFrame.width
         let heightRatio = size.height / visibleFrame.height
         
-        // Consider it "maximized" if it takes up at least 85% of the visible screen
-        let isMaximized = widthRatio >= 0.85 && heightRatio >= 0.85
+        // Check if window is positioned at screen edges (allowing small margin for menubar)
+        let atLeftEdge = abs(position.x - visibleFrame.minX) < 5
+        let atTopEdge = abs(position.y - visibleFrame.minY) < 5
+        let atRightEdge = abs((position.x + size.width) - visibleFrame.maxX) < 5
+        
+        // Consider it "maximized" if it takes up at least 95% of the visible screen
+        // AND is positioned at the screen edges
+        let isMaximized = widthRatio >= 0.95 && heightRatio >= 0.95 && atLeftEdge && atTopEdge && atRightEdge
+        
+        print("🔍 Window check - Width: \(String(format: "%.2f", widthRatio * 100))%, Height: \(String(format: "%.2f", heightRatio * 100))%, Edges: L:\(atLeftEdge) T:\(atTopEdge) R:\(atRightEdge) -> Maximized: \(isMaximized)")
         
         return isMaximized
     }
