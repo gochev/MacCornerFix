@@ -1,0 +1,19 @@
+# Build artifacts
+build/
+*.app
+
+# macOS
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+
+# Swift
+*.swiftmodule
+*.swiftdoc
